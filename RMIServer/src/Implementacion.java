@@ -9,17 +9,13 @@ public class Implementacion extends UnicastRemoteObject implements ServidorInter
     }
 
     @Override
-    public int sum(int a, int b) throws RemoteException {
-        return a + b;
+    public float Algoritmo(String impresion) throws RemoteException {
+        String[] tmp1 = impresion.split(" ");
+        int sum = 0;
+        for (int i = 0; i < tmp1.length; i++) {
+            sum = sum + Integer.parseInt(tmp1[i]);
+        }
+        return sum / tmp1.length;
     }
 
-    @Override
-    public float Algoritmo(String infoFicheroDat) throws RemoteException {
-        String[] tmp1 = infoFicheroDat.split(" ");
-        int valormedio = 0;
-        for (int i = 0; i < tmp1.length; i++) {
-            valormedio = valormedio + Integer.parseInt(tmp1[i]);
-        }
-        return (float)valormedio / tmp1.length;    
-    }
 }
