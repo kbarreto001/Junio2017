@@ -1,35 +1,31 @@
 package sockettcpserver;
 
-import algoritmo.AlgoritmoS;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import supports.SupportS;
 
-public class SocketTCPServer {   
+public class SocketTCPServer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int counter = 1, size = 1000;
-        System.out.println("Soy el servidor");
-        String[] ficheroVolcado;
-        String diferenciaPos;
+        System.out.println("Soy el servidor");         
         try {
             ServerSocket server = new ServerSocket(5000, size);
             while (true) {
                 Socket connection = server.accept();
                 DataInputStream disSocket = new DataInputStream(connection.getInputStream());
                 DataOutputStream dosSocket = new DataOutputStream(connection.getOutputStream());
-                System.out.println("Conexion No. " + counter + " Recibida de: " + connection.getInetAddress().getHostName());
 
-                SupportS otro = new SupportS();
-                AlgoritmoS otro2 = new AlgoritmoS();
-                        
-                ficheroVolcado=otro.RecibirFichero(disSocket, dosSocket);
-                otro.GuardarFicheroVolcado(ficheroVolcado);
-                diferenciaPos = otro2.Algoritmo(ficheroVolcado);
-                otro.EnviarDiferenciaPositiva(dosSocket, diferenciaPos);
+                System.out.println("Recibida conexion No. " + counter + " from: " + connection.getInetAddress().getHostName());
+                
+                SupportS soporte = new SupportS();
+                
+                String[] ficheroVolcado = soporte.RecibirFichero(disSocket);
+                soporte.GuardarFichero(ficheroVolcado);
+                String difPos = soporte.Algoritmo(ficheroVolcado);
+                soporte.EnviardifPos(difPos, dosSocket);
                 
 
                 connection.close();
@@ -37,9 +33,9 @@ public class SocketTCPServer {
                 dosSocket.close();
                 counter++;
             }
-        } catch (IOException ex) {
-            System.out.println("Error 1: " + ex.getLocalizedMessage());
 
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getLocalizedMessage());
         }
 
     }
