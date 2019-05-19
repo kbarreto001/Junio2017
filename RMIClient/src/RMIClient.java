@@ -8,18 +8,21 @@ import java.rmi.RemoteException;
 public class RMIClient {
 
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException, IOException {
-        String infoFicheroDat;
+
         try {
             ServidorInterfaz objetoRemoto = (ServidorInterfaz) Naming.lookup("//localhost:1330/SERVIDOR");
-            System.out.println("Soy el cliente, obtenido objeto remoto");
+            System.out.println("Soy el cliente");
             
-            SupportC otro = new SupportC();
-            infoFicheroDat = otro.VolcarFichero();
-            System.out.println(objetoRemoto.Algoritmo(infoFicheroDat));
-
+            SupportC soporte = new SupportC();
+            
+            String impresion = soporte.LeerdifPos();
+            System.out.println(impresion);
+            System.out.println(objetoRemoto.Algoritmo(impresion));
+            
         } catch (RemoteException ex) {
-            System.out.println("Error: 1" + ex.getLocalizedMessage());
+            System.out.println("Error: " + ex.getLocalizedMessage());
         }
+
     }
 
 }

@@ -7,16 +7,15 @@ import java.io.IOException;
 
 public class SupportC {
 
-    protected File ficheroDat = new File("file.dat");
+    protected File fileD = new File("file.dat");
 
-    public String VolcarFichero() throws FileNotFoundException, IOException {
-        String infoFicheroDat;
+    public String LeerdifPos() throws FileNotFoundException, IOException {
+        String impresion;
         try (
-                DataInputStream dis = new DataInputStream(new FileInputStream(ficheroDat));) {
-            infoFicheroDat = dis.readUTF();
-            System.out.println(infoFicheroDat);
+                DataInputStream dis = new DataInputStream(new FileInputStream(fileD));) {
+            impresion = dis.readUTF();
         }
-        return infoFicheroDat;
-    }   
+        return impresion;
+    }
 
 }
